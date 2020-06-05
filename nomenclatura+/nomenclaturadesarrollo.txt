@@ -1,0 +1,9 @@
+Nombre de las clases:
+cObjeto, cAlumno, c......
+
+Nombre de formularios:
+FrmLogin, FrmAltaAlumno, Frm......
+
+Estilos:
+ Estilo/EstiloControles.css
+ Estilo/HojaEstilo.css
