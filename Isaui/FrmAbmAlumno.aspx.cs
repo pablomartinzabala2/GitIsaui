@@ -102,6 +102,6 @@ public partial class FrmAbmAlumno : System.Web.UI.Page
 
     protected void btnRegresar_Click(object sender, EventArgs e)
     {
-        Response.Redirect("FrmListadoAlumno.aspx");
+        Response.Redirect("FrmListadoAlumnos.aspx");
     }
 }

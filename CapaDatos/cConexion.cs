@@ -10,6 +10,7 @@ namespace CapaDatos
     {
         public static string GetCadena()
         {
+            //Pablo
             string Cadena = "Data Source =DESKTOP-QKECIIE; Initial Catalog =ISAUI; Integrated Security = True";
             return Cadena;
         }
