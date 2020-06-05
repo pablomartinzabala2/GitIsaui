@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 namespace CapaDatos
-{  //alumno
+{  
     public class cAlumno
     {
         public DataTable GetAlumnos()
