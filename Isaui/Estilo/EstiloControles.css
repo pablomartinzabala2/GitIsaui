@@ -1,0 +1,31 @@
+﻿.HeaderStyle{
+    background-color:#1C5E55;
+    color:white;
+    
+}
+
+.EditRowStyle
+{
+    background-color:#7C6F57;
+}
+
+.FooterStyle
+{
+    background-color:#1C5E55;
+}
+
+.AlternatingRowStyle
+{
+    background-color:white;
+}
+
+.RowStyle{
+    background-color:#E3EAEB;
+}
+
+.Botones{
+    color:white;
+    background-color:blue;
+    width:100px;
+    height:25px;
+}
