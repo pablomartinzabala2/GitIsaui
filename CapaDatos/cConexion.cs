@@ -12,13 +12,13 @@ namespace CapaDatos
         {
             //Pablo // 4/6/2020
             //prueba
-          //  string Cadena = "Data Source =DESKTOP-QKECIIE; Initial Catalog =ISAUI; Integrated Security = True";
+            //string Cadena = "Data Source =DESKTOP-QKECIIE; Initial Catalog =ISAUI; Integrated Security = True";
             //Matias G
-            string Cadena = "Data Source =DESKTOP-QKECIIE; Initial Catalog =ISAUI; Integrated Security = True";
+            //string Cadena = "Data Source =DESKTOP-QKECIIE; Initial Catalog =ISAUI; Integrated Security = True";
             //Matias M
-           // string Cadena = "Data Source =DESKTOP-QKECIIE; Initial Catalog =ISAUI; Integrated Security = True";
+            string Cadena = "Data Source=.;Initial Catalog=ISAUI;Integrated Security=True";
             //Agustina
-           // string Cadena = "Data Source =DESKTOP-QKECIIE; Initial Catalog =ISAUI; Integrated Security = True";
+            // string Cadena = "Data Source =DESKTOP-QKECIIE; Initial Catalog =ISAUI; Integrated Security = True";
             return Cadena;
         }
     }
