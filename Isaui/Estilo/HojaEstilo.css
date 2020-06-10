@@ -479,4 +479,8 @@ div.accountInfo
 
 .DivTitulo
 {
-    background-color :orange;
+    background-color :orange;}
+    
+.container{
+   border: 1px solid #7e7c7c; 
+}
