@@ -481,6 +481,13 @@ div.accountInfo
 {
     background-color :orange;}
     
-.container{
-   border: 1px solid #7e7c7c; 
+.cont{
+    margin-left:5%;
+    margin-right:5%;
+    border: 1px solid #7e7c7c; 
+     
 }
+.form-signin{
+    width:60%;
+    display:block;
+    margin:auto;}

@@ -33,6 +33,15 @@ namespace CapaDatos
             return user;
         }
 
+        public bool consultaUsuario(string nombre) {
+            string sql = "select * from  Usuario";
+            sql = sql + " where Nombre LIKE '"+ nombre +"'";
+            DataTable trdo = cDb.GetDatos(sql);
+            if (trdo.Rows.Count > 0) {
+                return false;
+            }
+            return true;
+        }
         public DataTable GetUsuarioxCodigo(Int32 CodUsuario)
         {
             cUsuario user = new cUsuario();

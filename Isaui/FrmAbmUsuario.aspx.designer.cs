@@ -20,5 +20,7 @@ public partial class FrmAbmUsuario {
     
     protected System.Web.UI.WebControls.TextBox txtClave;
     
+    protected System.Web.UI.WebControls.Button btnPrincipal;
+    
     protected System.Web.UI.WebControls.Button btnGuardar;
 }
