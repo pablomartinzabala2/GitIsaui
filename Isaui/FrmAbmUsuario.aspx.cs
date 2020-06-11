@@ -37,7 +37,7 @@ public partial class FrmAbmUsuario : System.Web.UI.Page
     }
 
     public void Mensaje(string Msj)
-    {
+    { /*
         string Cuerpo = $"<div class=\"modal fade\" id=\"exampleModalCenter\" " +
             $"tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\" " +
             $"aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n  " +
@@ -49,8 +49,9 @@ public partial class FrmAbmUsuario : System.Web.UI.Page
             $"     <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Cerrar</button>\n  " +
             $"       </div>\n  " +
             $"  </div>\n  </div>\n</div>";
-        //Response.Write("<script language=javascript>alert('hola');</script>");
-        Response.Write(Cuerpo);
+            */
+        Response.Write("<script language=javascript>alert('hola');</script>");
+       // Response.Write(Cuerpo);
     }
 
 }
