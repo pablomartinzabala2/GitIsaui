@@ -58,6 +58,7 @@ public partial class FrmAbmUsuario : System.Web.UI.Page
 
 
     public void Mensaje(string Msj)
+
     {
         string Cuerpo = $"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js\"></script>" +
             "<script src=\"https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js\"></script>" +

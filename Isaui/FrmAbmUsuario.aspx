@@ -10,7 +10,9 @@
           <asp:TextBox runat="server" ID="txtNombre" type="text" maxlength="50" OnTextChanged="validarUsuario"  class="form-control" placeholder="Nombre de usuario"  ></asp:TextBox>
           <br>
             <label for="inputPassword" class="sr-only">Clave de usuario</label>
+
           <asp:TextBox  runat="server"ID="txtClave" TextMode="Password" MaxLength="25"   class="form-control" placeholder="Clave de usuario" ></asp:TextBox>
+
           <div class="checkbox mb-3">
             <label>
               <!--<input type="checkbox" value="remember-me">--> 
