@@ -10,7 +10,7 @@ namespace CapaDatos
     {
         public static string GetCadena()
         {
-            //Pablo // 12/06/2020
+            //Pablo // 12/06/2020 10:00
             //Pablo
             string Cadena = "Data Source =DESKTOP-QKECIIE; Initial Catalog =ISAUI; Integrated Security = True";
             //Matias G
