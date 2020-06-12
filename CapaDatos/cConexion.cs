@@ -14,12 +14,12 @@ namespace CapaDatos
             //Pablo
             string Cadena = "Data Source =DESKTOP-QKECIIE; Initial Catalog =ISAUI; Integrated Security = True";
             //Matias G
-             //string Cadena = "Server=localhost;Port=5432;User Id=postgres;Password=matias;";
-            //Matias M
+            //string Cadena = "Server=localhost;Port=5432;User Id=postgres;Password=matias;";
+            //Matias M // 4/6/2020
 
             //string Cadena = "Data Source=.;Initial Catalog=ISAUI;Integrated Security=True";
 
-           // string Cadena = "Data Source=.;Initial Catalog=ISAUI;Integrated Security=True";
+            // string Cadena = "Data Source=.;Initial Catalog=ISAUI;Integrated Security=True";
 
             //Agustina
             // string Cadena = "Data Source =DESKTOP-QKECIIE; Initial Catalog =ISAUI; Integrated Security = True";
