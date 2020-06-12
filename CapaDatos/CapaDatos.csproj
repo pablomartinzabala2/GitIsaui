@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cAlumno.cs" />
+    <Compile Include="cCicloLectivo.cs" />
     <Compile Include="cConexion.cs" />
     <Compile Include="cDb.cs" />
     <Compile Include="cUsuario.cs" />
