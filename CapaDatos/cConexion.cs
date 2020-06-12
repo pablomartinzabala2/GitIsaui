@@ -23,6 +23,9 @@ namespace CapaDatos
 
             //Agustina
             // string Cadena = "Data Source =DESKTOP-QKECIIE; Initial Catalog =ISAUI; Integrated Security = True";
+
+            //Maxi ch
+            // string Cadena = "Data Source =DESKTOP-QKECIIE; Initial Catalog =ISAUI; Integrated Security = True";
             return Cadena;
         }
     }
