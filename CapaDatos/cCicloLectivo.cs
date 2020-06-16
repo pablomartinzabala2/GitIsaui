@@ -1,6 +1,7 @@
 ﻿using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -19,7 +20,7 @@ namespace CapaDatos
         //    string con = $"insert into CicloLectivo (Nombre, Activo) values ('{ fecha}' )";
         //    cDb.Grabar(con);
         //}
-        
+
         //public void ValidateYear()
         //{
         //    string cad = $"select Nombre from CicloLectivo";
@@ -41,5 +42,25 @@ namespace CapaDatos
         //    }
         //    cDb.Grabar(con);
         //}
+
+
+        public void agregarCicloLectivo(string fecha)
+        {
+            string sql = $"insert into CicloLectivo (Nombre) values ('{ fecha }' )";
+            cDb.Grabar(sql);
+        }
+
+        public void modificarCicloLectivo(string nombre, byte activo, int id)
+        {
+            string sql = $"UPDATE CicloLectivo SET Nombre = {nombre}, Activo = {activo} WHERE CodCiclo = {id.ToString()}";
+            cDb.Grabar(sql);
+        }
+
+        public void eliminarCicloLectivo(string id)
+        {
+            string sql = $"DELETE FROM CicloLectivo WHERE CodCiclo = {id.ToString()}";
+            cDb.Grabar(sql);
+        }
+
     }
 }

@@ -5,6 +5,8 @@ using System.Text;
 using System.Data;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Data.Common;
+
 namespace CapaDatos
 {
     public static class cDb

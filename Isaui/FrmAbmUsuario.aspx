@@ -4,14 +4,15 @@
 <asp:Content ID="contenido" AutoPostBack="false" ContentPlaceHolderID="MainContent" Runat="Server">
     <div class="text-center">
         <div class="form-signin"  >
-         <img class="mb-4" src="./Iconos/logo-isaui.png" alt="" width="120px" > 
+            <img class="mb-4" runat="server" src="./Iconos/logo-isaui.png" alt=""/>
           <h1 class="h3 mb-3 font-weight-normal">Crear usuarios</h1>
           <label for="inputEmail" class="sr-only">Nombre de usuario</label>
           <asp:TextBox runat="server" ID="txtNombre" type="text" maxlength="50" OnTextChanged="validarUsuario"  class="form-control" placeholder="Nombre de usuario"  ></asp:TextBox>
-          <br>
+          <br />
             <label for="inputPassword" class="sr-only">Clave de usuario</label>
 
-          <asp:TextBox  runat="server"ID="txtClave" TextMode="Password" MaxLength="25"   class="form-control" placeholder="Clave de usuario" ></asp:TextBox>
+          <asp:TextBox  runat="server" ID="txtClave" TextMode="Password" MaxLength="25" class="form-control" placeholder="Clave de usuario" ></asp:TextBox>
+
 
           <div class="checkbox mb-3">
             <label>
