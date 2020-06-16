@@ -25,33 +25,29 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
 
     }
 
-    void cargarCombo()
+    private void cargarCombo()
     {
+        string str = cConexion.GetCadena();
+        SqlConnection con = new SqlConnection(str);
+        string com = "SELECT * from CicloLectivo";
+        SqlDataAdapter adpt = new SqlDataAdapter(com, con);
         DataTable dt = new DataTable();
-        string sql = "SELECT * FROM CicloLectivo";
-        string Cadena = cConexion.GetCadena();
-        SqlConnection con = new SqlConnection(Cadena);
-        SqlCommand cmd = new SqlCommand();
-        cmd.Connection = con;
-        cmd.CommandText = sql;
-        cmd.Connection.Open();
-        cmd.ExecuteNonQuery();
-        SqlDataAdapter da = new SqlDataAdapter();
-        da.SelectCommand = cmd;
-        da.Fill(dt);
-
-        if (dt.Rows.Count > 0)
-        {
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                string nombre;
-                nombre = dt.Rows[i]["Nombre"].ToString();
-                DropDownList1.Items.Add(nombre);
-            }
-        }
+        adpt.Fill(dt);
+        DropDownList1.DataSource = dt;
+        DropDownList1.DataBind();
+        DropDownList1.DataTextField = "Nombre";
+        DropDownList1.DataValueField = "CodCiclo";
+        //DropDownList1.DataValueField = "Activo";
+        DropDownList1.DataBind();
     }
 
+    private void AnoActivo()
+    {
+        cCicloLectivo cl = new cCicloLectivo();
 
+        txtAnoActivo.Text = "";
+
+    }
 
     protected void BtnCrearCLectivo_Click(object sender, EventArgs e)
     {
@@ -71,8 +67,15 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
     protected void btnEliminar_Click(object sender, EventArgs e)
     {
         cCicloLectivo cl = new cCicloLectivo();
-        string cod = DropDownList1.SelectedItem.Value;
-        //cl.eliminarCicloLectivo();
+        int cod = int.Parse(DropDownList1.SelectedValue);
+        cl.eliminarCicloLectivo(cod);
+        cargarCombo();
+    }
+
+    protected void btnModificar_Click(object sender, EventArgs e)
+    {
+        cCicloLectivo cl = new cCicloLectivo();
+        int cod = int.Parse(DropDownList1.SelectedValue);
     }
 }
 

@@ -56,11 +56,16 @@ namespace CapaDatos
             cDb.Grabar(sql);
         }
 
-        public void eliminarCicloLectivo(string id)
+        public void eliminarCicloLectivo(int id)
         {
             string sql = $"DELETE FROM CicloLectivo WHERE CodCiclo = {id.ToString()}";
             cDb.Grabar(sql);
         }
 
+        public void selectActivo()
+        {
+            string sql = $"SELECT Nombre FROM CicloLectivo WHERE Activo = 1";
+            cDb.GetDatos(sql);
+        }
     }
 }
