@@ -23,6 +23,8 @@ namespace CapaDatos
 
             //Maxi ch
             // string Cadena = "Data Source =DESKTOP-QKECIIE; Initial Catalog =ISAUI; Integrated Security = True";
+            // Cadena Agus V.
+            //string cadena = "Data Source = (LocalDB)\\MSSQLLocalDB; Initial Catalog=ISAUI; Integrated Security=True";
             return Cadena;
         }
     }
