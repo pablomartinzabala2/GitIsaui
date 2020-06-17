@@ -13,14 +13,6 @@ namespace CapaDatos
 {
     public class cCicloLectivo
     {
-        // CodCiclo   Nombre(varchar 20)   Activo(bit)
-
-        //public void AddCicloLectivo(string fecha)
-        //{
-        //    string con = $"insert into CicloLectivo (Nombre, Activo) values ('{ fecha}' )";
-        //    cDb.Grabar(con);
-        //}
-
         //public void ValidateYear()
         //{
         //    string cad = $"select Nombre from CicloLectivo";
@@ -50,7 +42,7 @@ namespace CapaDatos
             cDb.Grabar(sql);
         }
 
-        public void modificarCicloLectivo(string nombre, byte activo, int id)
+        public void modificarCicloLectivo(string nombre, int activo, int id)
         {
             string sql = $"UPDATE CicloLectivo SET Nombre = {nombre}, Activo = {activo} WHERE CodCiclo = {id.ToString()}";
             cDb.Grabar(sql);
@@ -62,10 +54,22 @@ namespace CapaDatos
             cDb.Grabar(sql);
         }
 
+        public void selectById(int id)
+        {
+            string sql = $"SELECT Nombre FROM CicloLectivo WHERE CodCiclo = {id.ToString()}";
+            cDb.Grabar(sql);
+        }
+
         public DataTable selectActivo()
         {
             string sql = $"SELECT Nombre FROM CicloLectivo WHERE Activo = 1";
             return cDb.GetDatos(sql);
+        }
+
+        public DataTable selectCarga()//mati
+        {
+            string com = "SELECT * from CicloLectivo";
+            return cDb.GetDatos(com);
         }
     }
 }
