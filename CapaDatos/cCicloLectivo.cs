@@ -62,10 +62,10 @@ namespace CapaDatos
             cDb.Grabar(sql);
         }
 
-        public void selectActivo()
+        public DataTable selectActivo()
         {
             string sql = $"SELECT Nombre FROM CicloLectivo WHERE Activo = 1";
-            cDb.GetDatos(sql);
+            return cDb.GetDatos(sql);
         }
     }
 }

@@ -30,6 +30,11 @@
         <br />
     </div>
 
+    <script type="text/javascript">
+        function myFunction() {
+            alert("hola");
+        }
+    </script>
 
 </asp:Content>
 

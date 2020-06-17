@@ -17,6 +17,7 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
         if (!IsPostBack)
         {
             cargarCombo();
+            AnoActivo();
         }
     }
 
@@ -37,20 +38,20 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
         DropDownList1.DataBind();
         DropDownList1.DataTextField = "Nombre";
         DropDownList1.DataValueField = "CodCiclo";
-        //DropDownList1.DataValueField = "Activo";
         DropDownList1.DataBind();
     }
 
     private void AnoActivo()
     {
         cCicloLectivo cl = new cCicloLectivo();
-
-        txtAnoActivo.Text = "";
-
+        DataTable dt = cl.selectActivo();
+        txtAnoActivo.Text = dt.Rows[0]["Nombre"].ToString();
     }
 
     protected void BtnCrearCLectivo_Click(object sender, EventArgs e)
     {
+        //se duplica cuando recarga
+        //validar activo
         cCicloLectivo cl = new cCicloLectivo();
         string fecha = "";
 
@@ -74,6 +75,8 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
 
     protected void btnModificar_Click(object sender, EventArgs e)
     {
+        //hacer modal o buscar otra forma.
+        ScriptManager.RegisterStartupScript(this, GetType(), "", "myFunction();", true);
         cCicloLectivo cl = new cCicloLectivo();
         int cod = int.Parse(DropDownList1.SelectedValue);
     }
