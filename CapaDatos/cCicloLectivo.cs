@@ -44,7 +44,7 @@ namespace CapaDatos
 
         public void modificarCicloLectivo(string nombre, int activo, int id)
         {
-            string sql = $"UPDATE CicloLectivo SET Nombre = {nombre}, Activo = {activo} WHERE CodCiclo = {id.ToString()}";
+            string sql = $"UPDATE CicloLectivo SET Nombre = {nombre}, Activo = {activo} WHERE CodCiclo = {id}";
             cDb.Grabar(sql);
         }
 

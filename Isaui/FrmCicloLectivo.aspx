@@ -20,13 +20,13 @@
             <asp:TextBox ID="txtAnoActivo" runat="server" Enabled="false"></asp:TextBox>
             <br />
             <label>Selecciones el Ciclo</label>
-            <asp:DropDownList ID="DropDownList1" runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged"></asp:DropDownList>
+            <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged"></asp:DropDownList>
         </div>
         <div class="editar" id="editarAno">
             <div class="contenedor">
                 <asp:Panel ID="panelEditar" runat="server">
                     <asp:Label ID="Label2" runat="server" Text="Ingrese nuevo año:"></asp:Label>
-                    <asp:TextBox ID="txtAnoMod" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtAnoMod" runat="server" AutoPostBack="true" OnTextChanged="txtAnoMod_TextChanged"></asp:TextBox>
                     <asp:CheckBox ID="cbAnoMod" runat="server" Text="ACTIVO" />
                     <asp:Button ID="btnAnoMod" class="btn btn-primary btn-sm" runat="server" Text="GUARDAR" OnClick="btnAnoMod_Click" />
                 </asp:Panel>
