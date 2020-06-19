@@ -45,8 +45,20 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
 
     private void AnoActivo()
     {
+        //validar si la base tiene datos
         DataTable dt = cl.selectActivo();
-        txtAnoActivo.Text = dt.Rows[0]["Nombre"].ToString();
+        if (dt.Rows.Count >0)
+        {
+            if (dt.Rows[0]["Nombre"].ToString() != "")
+                txtAnoActivo.Text = dt.Rows[0]["Nombre"].ToString();
+
+            if (dt.Rows[0]["Activo"].ToString() == "1")
+                cbActivo.Checked = true;
+
+        }
+            
+
+
     }
 
     protected void BtnCrearCLectivo_Click(object sender, EventArgs e)
@@ -97,10 +109,13 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
 
     public void select()
     {
-
-        DataTable dt = cl.selectTodoCL();
+        Int32 CodCiclo = Convert.ToInt32(DropDownList1.SelectedValue);
+        DataTable dt = cl.selectById(CodCiclo);
         txtAnoActivo.Text = dt.Rows[0]["Nombre"].ToString();
-
+        if (dt.Rows[0]["Activo"].ToString()=="1")
+        {
+            cbAnoMod.Checked = true;
+        }
         traerNombre = DropDownList1.SelectedItem.Text;
         //int esActivo = 
         txtAnoMod.Text = traerNombre;

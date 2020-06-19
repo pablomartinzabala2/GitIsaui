@@ -54,15 +54,15 @@ namespace CapaDatos
             cDb.Grabar(sql);
         }
 
-        public void selectById(int id)
+        public DataTable selectById(int id)
         {
-            string sql = $"SELECT Nombre FROM CicloLectivo WHERE CodCiclo = {id.ToString()}";
-            cDb.Grabar(sql);
+            string sql = $"SELECT Nombre,Activo FROM CicloLectivo WHERE CodCiclo = {id.ToString()}";
+            return  cDb.GetDatos(sql);
         }
 
         public DataTable selectActivo()
         {
-            string sql = $"SELECT Nombre FROM CicloLectivo WHERE Activo = 1";
+            string sql = $"SELECT Nombre,Activo FROM CicloLectivo WHERE Activo = 1";
             return cDb.GetDatos(sql);
         }
 
