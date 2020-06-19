@@ -36,9 +36,9 @@ namespace CapaDatos
         //}
 
 
-        public void agregarCicloLectivo(string fecha)
+        public void agregarCicloLectivo(string fecha, int activo)
         {
-            string sql = $"insert into CicloLectivo (Nombre) values ('{ fecha }' )";
+            string sql = $"insert into CicloLectivo (Nombre, activo) values ('{ fecha }', {activo} )";
             cDb.Grabar(sql);
         }
 
@@ -66,7 +66,7 @@ namespace CapaDatos
             return cDb.GetDatos(sql);
         }
 
-        public DataTable selectCarga()//mati
+        public DataTable selectTodoCL()
         {
             string com = "SELECT * from CicloLectivo";
             return cDb.GetDatos(com);

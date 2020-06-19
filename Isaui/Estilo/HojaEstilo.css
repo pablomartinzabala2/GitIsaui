@@ -9,6 +9,10 @@
     font-family: 'Arial Narrow', Arial, sans-serif;
 }
 
+.btnContainer{
+    display: inline-block;
+}
+
 .DivEncabezado {
     background-color: red;
     height: 50px;
