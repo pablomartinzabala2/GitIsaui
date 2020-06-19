@@ -97,10 +97,17 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
 
     public void select()
     {
+
+        DataTable dt = cl.selectTodoCL();
+        txtAnoActivo.Text = dt.Rows[0]["Nombre"].ToString();
+
         traerNombre = DropDownList1.SelectedItem.Text;
         //int esActivo = 
         txtAnoMod.Text = traerNombre;
-        char check = DropDownList1.SelectedValue[2];
+        //if (DropDownList1.Items.FindByValue(dt.Rows[0].ToString()))
+        //{
+
+        //} ;
        // cbAnoMod.Checked = 
         //traer y mostrar q si esta activo o no en el checkbox
     }
