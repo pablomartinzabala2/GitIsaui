@@ -68,8 +68,13 @@ namespace CapaDatos
 
         public DataTable selectTodoCL()
         {
-            string com = "SELECT * from CicloLectivo";
+            string com = "SELECT * FROM CicloLectivo ORDER BY Nombre ASC";
             return cDb.GetDatos(com);
         }
+
+        //public DataTable changeToNull()
+        //{
+        //    string sql = "UPDATE CicloLectivo SET Activo = 0";
+        //}
     }
 }

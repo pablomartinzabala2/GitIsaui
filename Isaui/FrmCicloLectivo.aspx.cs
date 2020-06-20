@@ -16,6 +16,7 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
     string nombre = "";
     string traerNombre = "";
     cCicloLectivo cl = new cCicloLectivo();
+    DataTable dt = new DataTable();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -29,12 +30,11 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
 
     protected void BtnCCL(object sender, EventArgs e)
     {
-
+        //borrar
     }
 
     private void cargarCombo()
     {
-        DataTable dt = new DataTable();
         dt = cl.selectTodoCL();
         DropDownList1.DataSource = dt;
         DropDownList1.DataBind();
@@ -46,26 +46,19 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
     private void AnoActivo()
     {
         //validar si la base tiene datos
-        DataTable dt = cl.selectActivo();
-        if (dt.Rows.Count >0)
+        dt = cl.selectActivo();
+        if (dt.Rows.Count > 0)
         {
             if (dt.Rows[0]["Nombre"].ToString() != "")
                 txtAnoActivo.Text = dt.Rows[0]["Nombre"].ToString();
 
             if (dt.Rows[0]["Activo"].ToString() == "1")
                 cbActivo.Checked = true;
-
         }
-            
-
-
     }
 
     protected void BtnCrearCLectivo_Click(object sender, EventArgs e)
     {
-        //se duplica cuando recarga
-        //validar activo
-
         string fecha = "";
         if (txtNFecha.Text == "")
         {
@@ -73,16 +66,49 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
         }
         if (txtNFecha.Text != "")
         {
+            dt = cl.selectActivo();
+            DataTable dt2 = cl.selectTodoCL();
+            string activo = dt.Rows[0]["Activo"].ToString();
+            string nombreActivo = dt.Rows[0]["Nombre"].ToString();
+
+            if (txtNFecha.Text == nombreActivo)
+            {
+                string script = "<script languaje=javascript>console.log('error')</script>";
+                Response.Write(script);
+                return; //agregar modal de error
+            }
+
+            for (int i = 0; i < dt2.Rows.Count; i++)
+            {
+                string nombre2 = dt2.Rows[i]["Nombre"].ToString();
+                if (txtNFecha.Text == nombre2)
+                {
+                    string script = "<script languaje=javascript >console.log('error')</script>";
+                    Response.Write(script);
+                    Limpiar();
+                    return; //agregar modal de error
+                }
+            }
             int checkActivo = cbActivo.Checked ? 1 : 0;
             fecha = txtNFecha.Text;
+            if (checkActivo == 1)
+            {
+                //mensaje
+                for (int i = 0; i < dt2.Rows.Count; i++)
+                {
+                    int id = int.Parse(dt2.Rows[i]["CodCiclo"].ToString());
+                    string nombre = dt2.Rows[i]["Nombre"].ToString();
+                    cl.modificarCicloLectivo(nombre, 0, id);
+                }
+            }
             cl.agregarCicloLectivo(fecha, checkActivo);
+            cargarCombo();
+            Limpiar();
         }
-        Limpiar();
     }
 
     protected void btnEliminar_Click(object sender, EventArgs e)
     {
-        cCicloLectivo cl = new cCicloLectivo();
         int cod = int.Parse(DropDownList1.SelectedValue);
         cl.eliminarCicloLectivo(cod);
         cargarCombo();
@@ -90,8 +116,6 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
 
     protected void btnModificar_Click(object sender, EventArgs e)
     {
-        // podemos hacer q el metodo SELECT() lo carge solo cuando lo muestre y si panel no esta visible hacer validaciones por las dudas q mas adelante no enredemos mas, si validadmos q si campos esta con valor (osea q panel este visible q edita, caso contrario q no haga nada.. tamien puede funcionar con el guardar nuevo dato)
-
         ActivarPanel();
     }
 
@@ -99,8 +123,7 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
     {
         nombre = txtAnoMod.Text;
         cod = int.Parse(DropDownList1.SelectedValue);
-        int checkActivo = cbAnoMod.Checked ? 1 : 0; // ternario, googlear.
-        //debemos validar q si coloca q esta activo el q modifico, q el resto de desactiven (valor 0) esto se puede hacer en un metodo, ya q le podemos hacer mas amigable el pograma al q lo use, lo podra activa de varias forma y no se fatigara el usuario q ande entrando de un lado a otro para hacer las cosas
+        int checkActivo = cbAnoMod.Checked ? 1 : 0;
         cl.modificarCicloLectivo(nombre, checkActivo, cod);
         cargarCombo();
         Limpiar();
@@ -109,34 +132,30 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
 
     public void select()
     {
-        Int32 CodCiclo = Convert.ToInt32(DropDownList1.SelectedValue);
-        DataTable dt = cl.selectById(CodCiclo);
-        txtAnoActivo.Text = dt.Rows[0]["Nombre"].ToString();
-        if (dt.Rows[0]["Activo"].ToString()=="1")
+        if (panelEditar.Visible == true)
         {
-            cbAnoMod.Checked = true;
+            Int32 CodCiclo = Convert.ToInt32(DropDownList1.SelectedValue);
+            dt = cl.selectById(CodCiclo);
+            txtAnoActivo.Text = dt.Rows[0]["Nombre"].ToString();
+            string activo = dt.Rows[0]["Activo"].ToString();
+            cbAnoMod.Checked = false;
+            if (activo == "True")
+            {
+                cbAnoMod.Checked = true;
+            }
+            traerNombre = DropDownList1.SelectedItem.Text;
+            txtAnoMod.Text = traerNombre;
         }
-        traerNombre = DropDownList1.SelectedItem.Text;
-        //int esActivo = 
-        txtAnoMod.Text = traerNombre;
-        //if (DropDownList1.Items.FindByValue(dt.Rows[0].ToString()))
-        //{
-
-        //} ;
-       // cbAnoMod.Checked = 
-        //traer y mostrar q si esta activo o no en el checkbox
     }
 
     protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
     {
-        //esta viajando a cada momento q cambiamos valor en combobox
         select();
     }
 
-    protected void txtAnoMod_TextChanged(object sender, EventArgs e)// para mi no va
+    protected void txtAnoMod_TextChanged(object sender, EventArgs e)
     {
-        //si hago esto en este momento la variable nombre esta vacio asi q lo comente
-        //txtAnoMod.Text = nombre;
+        //borrar
     }
 
     private void Limpiar()
@@ -144,7 +163,6 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
         txtAnoMod.Text = string.Empty;
         txtNFecha.Text = string.Empty;
         txtNFecha.Text = "";
-        //cbAnoMod.Checked = false;
         cbActivo.Checked = false;
     }
 
@@ -169,17 +187,14 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
         }
     }
 
-    //hacer metodos de desactivas y limpiar , capas sera mejor separarlo, lo veremos mientras programamamos
-
     protected void txtAnoActivo_TextChanged(object sender, EventArgs e)
     {
-
+        //borrar
     }
 
     protected void cbAnoMod_CheckedChanged(object sender, EventArgs e)
     {
-        //if(cbAnoMod.Checked) DropDownList1.SelectedValue = "1";
-        //else DropDownList1.SelectedValue = "0";
+        //borrar
     }
 }
 

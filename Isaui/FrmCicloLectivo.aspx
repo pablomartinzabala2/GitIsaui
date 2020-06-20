@@ -30,25 +30,16 @@
                     <asp:CheckBox ID="cbAnoMod" runat="server" Text="ACTIVO" OnCheckedChanged="cbAnoMod_CheckedChanged" />
                     <asp:Button ID="btnAnoMod" class="btn btn-primary btn-sm" runat="server" Text="GUARDAR" OnClick="btnAnoMod_Click" />
                 </asp:Panel>
-
             </div>
         </div>
         <div class="btnContainer">
-            
-                <asp:Button ID="btnComenzar" runat="server" Text="Comenzar ciclo lectivo" class="btn btn-success" />
-
+            <asp:Button ID="btnComenzar" runat="server" Text="Comenzar ciclo lectivo" class="btn btn-success" />
             <asp:Button ID="btnModificar" runat="server" Text="Modificar" class="btn btn-primary" OnClick="btnModificar_Click" />
-           
-                <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" class="btn btn-danger" OnClick="btnEliminar_Click" />
 
+            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" class="btn btn-danger" OnClick="btnEliminar_Click" />
         </div>
-
-
         <br />
     </div>
-
-
-
 </asp:Content>
 
 
