@@ -44,8 +44,8 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
     private void AnoActivo()
     {
         cCicloLectivo cl = new cCicloLectivo();
-        DataTable dt = cl.selectActivo();
-        txtAnoActivo.Text = dt.Rows[0]["Nombre"].ToString();
+       // DataTable dt = cl.selectActivo();
+       // txtAnoActivo.Text = dt.Rows[0]["Nombre"].ToString();
     }
 
     protected void BtnCrearCLectivo_Click(object sender, EventArgs e)
