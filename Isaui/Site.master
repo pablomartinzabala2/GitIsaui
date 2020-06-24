@@ -3,12 +3,13 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-    
+
 <head runat="server">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title></title>
     <link href="Estilo/HojaEstilo.css" rel="stylesheet" />
-    <link href="Estilo/EstiloControles.css" rel="stylesheet" /><link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet">
+    <link href="Estilo/EstiloControles.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -18,49 +19,51 @@
 </head>
 <body>
     <form runat="server">
-    <div class="cont">
-        <div class="header">
-            <div class="title">
-                <h1>
-                    Sistema Isaui
-                </h1>
+        <div class="cont">
+            <div class="header">
+                <div class="title">
+                    <h1>Sistema Isaui
+                    </h1>
+                </div>
+                <div class="loginDisplay">
+                    <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
+                        <AnonymousTemplate>
+                            [ <a href="FrmLogin.aspx" id="HeadLoginStatus" runat="server">Salir</a> ]
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            Welcome <span class="bold">
+                                <asp:LoginName ID="HeadLoginName" runat="server" />
+                            </span>!
+                        [
+                            <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out" LogoutPageUrl="~/" />
+                            ]
+                        </LoggedInTemplate>
+                    </asp:LoginView>
+                </div>
+                <div class="clear hideSkiplink">
+                    <div>
+                        <asp:Literal ID="literalMenu" runat="server"></asp:Literal>
+
+                        <ul class='nav'>
+                            <li><a href="">Archivo</a>
+                                <ul>
+                                    <li><a href="FrmListadoAlumnos.aspx">Alumnos</a></li>
+                                    <li><a href="FrmAbmUsuario.aspx">Crear usuario</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
             </div>
-            <div class="loginDisplay">
-                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
-                    <AnonymousTemplate>
-                        [ <a href="FrmLogin.aspx" ID="HeadLoginStatus" runat="server">Salir</a> ]
-                    </AnonymousTemplate>
-                    <LoggedInTemplate>
-                        Welcome <span class="bold"><asp:LoginName ID="HeadLoginName" runat="server" /></span>!
-                        [ <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out" LogoutPageUrl="~/"/> ]
-                    </LoggedInTemplate>
-                </asp:LoginView>
+            <div class="main">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
             </div>
-            <div class="clear hideSkiplink">
-                <div> 
-                    <asp:Literal ID ="literalMenu" runat ="server"></asp:Literal>
-                     
-            <ul class='nav'>
-    <li><a href="">Archivo</a> 
-                <ul>
-                    <li><a href="FrmListadoAlumnos.aspx">Alumnos</a></li>
-                    <li><a href="FrmAbmUsuario.aspx">Crear usuario</a></li>              
-                </ul>
-    </li>     
-</ul>
-                    
-        </div>
+            <div class="clear">
             </div>
         </div>
-        <div class="main">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+        <div class="footer">
         </div>
-        <div class="clear">
-        </div>
-    </div>
-    <div class="footer">
-        
-    </div>
     </form>
 </body>
 </html>

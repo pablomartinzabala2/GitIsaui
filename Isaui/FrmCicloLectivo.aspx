@@ -10,32 +10,36 @@
             <asp:TextBox ID="txtNFecha" runat="server" placeholder="Ej: 2020"></asp:TextBox>
             <asp:CheckBox ID="cbActivo" runat="server" Text="ACTIVO" />
         </div>
-        <asp:Button ID="BtnCrearCLectivo" runat="server" Text="Crear ciclo lectivo" class="btn-primary" OnClick="BtnCrearCLectivo_Click" />
+        <asp:Button ID="BtnCrearCLectivo" runat="server" Text="Crear ciclo lectivo" class="btn btn-primary" OnClick="BtnCrearCLectivo_Click" />
         <br />
     </div>
     <br />
     <div>
         <div>
             <asp:Label ID="Label1" runat="server" Text="El año activo es: "></asp:Label>
-            <asp:TextBox ID="txtAnoActivo" runat="server" Enabled="false"></asp:TextBox>
+            <asp:TextBox ID="txtAnoActivo" runat="server" Enabled="false" Width="111px" OnTextChanged="txtAnoActivo_TextChanged"></asp:TextBox>
             <br />
             <label>Selecciones el Ciclo</label>
-            <asp:DropDownList ID="DropDownList1" runat="server"></asp:DropDownList>
+            <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged"></asp:DropDownList>
         </div>
-        <asp:Button ID="btnComenzar" runat="server" Text="Comenzar ciclo lectivo" class="btn-primary" />
+        <div class="editar" id="editarAno">
+            <div class="contenedor">
+                <asp:Panel ID="panelEditar" runat="server">
+                    <asp:Label ID="Label2" runat="server" Text="Ingrese nuevo año:"></asp:Label>
+                    <asp:TextBox ID="txtAnoMod" runat="server" AutoPostBack="true" OnTextChanged="txtAnoMod_TextChanged"></asp:TextBox>
+                    <asp:CheckBox ID="cbAnoMod" runat="server" Text="ACTIVO" OnCheckedChanged="cbAnoMod_CheckedChanged" />
+                    <asp:Button ID="btnAnoMod" class="btn btn-primary btn-sm" runat="server" Text="GUARDAR" OnClick="btnAnoMod_Click" />
+                </asp:Panel>
+            </div>
+        </div>
+        <div class="btnContainer">
+            <asp:Button ID="btnComenzar" runat="server" Text="Comenzar ciclo lectivo" class="btn btn-success" />
+            <asp:Button ID="btnModificar" runat="server" Text="Modificar" class="btn btn-primary" OnClick="btnModificar_Click" />
 
-        <asp:Button ID="btnModificar" runat="server" Text="Modificar ciclo lectivo" class="btn-primary" OnClick="btnModificar_Click" />
-
-        <asp:Button ID="btnEliminar" runat="server" Text="Eliminar ciclo lectivo" class="btn-primary" OnClick="btnEliminar_Click" />
+            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" class="btn btn-danger" OnClick="btnEliminar_Click" />
+        </div>
         <br />
     </div>
-
-    <script type="text/javascript">
-        function myFunction() {
-            alert("hola");
-        }
-    </script>
-
 </asp:Content>
 
 
