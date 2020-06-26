@@ -8,6 +8,7 @@ using CapaDatos;
 using System.Data;
 public partial class FrmListadoAlumnos : System.Web.UI.Page
 {
+    //hola agustina
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
