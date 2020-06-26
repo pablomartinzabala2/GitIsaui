@@ -46,7 +46,7 @@
              <asp:BoundField DataField="Nombre" HeaderText="Nombre">
             <HeaderStyle Width="100px" />
             </asp:BoundField>
-             <asp:BoundField DataField="NroDoc" HeaderText="Nro Dod">
+             <asp:BoundField DataField="NroDoc" HeaderText="Nro Doc">
             <HeaderStyle Width="100px" />
             </asp:BoundField>
             <asp:BoundField DataField="Telefono" HeaderText="Teléfono">
