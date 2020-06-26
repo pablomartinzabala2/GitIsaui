@@ -13,42 +13,20 @@ namespace CapaDatos
 {
     public class cCicloLectivo
     {
-        //public void ValidateYear()
-        //{
-        //    string cad = $"select Nombre from CicloLectivo";
-        //    cDb.GetDatos(cad);
-        //    int ano = DateTime.Now.Year;
-        //    int anoBD = int.Parse(cad);
-        //    string con="";
-        //    if (anoBD < ano)
-        //    {
-        //         con = "update CicloLectivo set Activo=0";
-        //    }
-        //    if (anoBD==ano)
-        //    {
-        //        con = "update CicloLectivo set Activo=1";
-        //    }
-        //    else
-        //    {
-        //        con = "update CicloLectivo set Activo=null";
-        //    }
-        //    cDb.Grabar(con);
-        //}
 
-
-        public void agregarCicloLectivo(string fecha, int activo)
+        public void addCL(string fecha, int activo)
         {
             string sql = $"insert into CicloLectivo (Nombre, activo) values ('{ fecha }', {activo} )";
             cDb.Grabar(sql);
         }
 
-        public void modificarCicloLectivo(string nombre, int activo, int id)
+        public void updateCL(string nombre, int activo, int id)
         {
             string sql = $"UPDATE CicloLectivo SET Nombre = {nombre}, Activo = {activo} WHERE CodCiclo = {id}";
             cDb.Grabar(sql);
         }
 
-        public void eliminarCicloLectivo(int id)
+        public void deleteCL(int id)
         {
             string sql = $"DELETE FROM CicloLectivo WHERE CodCiclo = {id.ToString()}";
             cDb.Grabar(sql);
@@ -60,21 +38,17 @@ namespace CapaDatos
             return  cDb.GetDatos(sql);
         }
 
-        public DataTable selectActivo()
+        public DataTable selectAct()
         {
             string sql = $"SELECT Nombre,Activo FROM CicloLectivo WHERE Activo = 1";
             return cDb.GetDatos(sql);
         }
 
-        public DataTable selectTodoCL()
+        public DataTable selectAll()
         {
             string com = "SELECT * FROM CicloLectivo ORDER BY Nombre ASC";
             return cDb.GetDatos(com);
         }
 
-        //public DataTable changeToNull()
-        //{
-        //    string sql = "UPDATE CicloLectivo SET Activo = 0";
-        //}
     }
 }

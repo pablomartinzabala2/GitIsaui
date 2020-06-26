@@ -7,6 +7,7 @@
 <head runat="server">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title></title>
+    <script src="Function/MjeScrip.js"></script>
     <link href="Estilo/HojaEstilo.css" rel="stylesheet" />
     <link href="Estilo/EstiloControles.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet">
