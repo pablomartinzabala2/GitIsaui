@@ -29,6 +29,7 @@
     width:100px;
     height:25px;
 }
+
  
      @media screen and (max-width:600px){
   
@@ -45,3 +46,10 @@
  }
  
  
+
+
+.Iconabm {
+    Width: 35px;
+    Height: 35px;
+}
+
