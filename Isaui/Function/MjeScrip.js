@@ -14,18 +14,18 @@
     //document.getElementById("#divSiCCL").style.display = "block";
 }
 
-function alertNo()
+
+
+function alertMSi()
 {
-    //esta mal el ID=#, estaba mal la palabra FUNCTION, y bootstra es un hdp, dice q le pase el alerte y no show "y mas importante el TRUE"
-    $("#divNoCCL").show();
+    $("#divASiCCL").show();
 }
 
-function alertPSi()
-{
-    $("#divPSiCCL").show();
-}
-
-function alertPNo() {
+function alertMNo() {
    
-    $("#divPNoCCL").show();
+    $("#divANoCCL").show();
+}
+
+function modalAction() {
+    $("#ventanaModalAction").modal("show");
 }

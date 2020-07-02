@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Activities;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -10,6 +11,7 @@ using System.Web.UI.WebControls;
 using CapaDatos;
 
 /*
+ * -NO CARGA BIEN LA TABLA , NO ME CAMBIA EL BOTON
     
     3_ mje de usuario de validaciones
     4_ diseño
@@ -22,27 +24,16 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
     cCicloLectivo cl = new cCicloLectivo();
     DataTable dt = new DataTable();
 
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            FillDdl();
+            FillGrid();
             YearActive();
             panelEditar.Visible = false;
-        }
-    }
-
-
-    private void FillDdl()
-    {//llena el DrowDopList
-        dt = cl.selectAll();
-        if (dt.Rows.Count > 0)
-        {
-            DropDownList1.DataSource = dt;
-            DropDownList1.DataBind();
-            DropDownList1.DataTextField = "Nombre";
-            DropDownList1.DataValueField = "CodCiclo";
-            DropDownList1.DataBind();
+            btnBack.Visible = false;
+           
         }
     }
 
@@ -52,90 +43,66 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
         if (dt.Rows.Count > 0)
         {
             if (dt.Rows[0]["Nombre"].ToString() != "")
-                txtActiveYear.Text = dt.Rows[0]["Nombre"].ToString();
+                lblActiveYear.Text = " " + dt.Rows[0]["Nombre"].ToString();
         }
         else
         {
-            txtActiveYear.Text = "Ninguno";
+            lblActiveYear.Text = "Ninguno";
         }
     }
 
-
     protected void btnAnoMod_Click(object sender, EventArgs e)
     {
-        string mje="";
+
+        string mje = "";
         string name = txtAnoMod.Text;
-        if (name=="")
+        if (name == "")
         {
             Clean();
             mje = "Debe ingressar solo 4 caracteres sin comas ni puntos";
-            lblMjePNoCCL.Text = mje;
-            ClientScript.RegisterStartupScript(GetType(), "alertdanger", "alertPNo()", true);
+            lblMjeANoCCL.Text = mje;
+            ClientScript.RegisterStartupScript(GetType(), "alertdanger", "alertMNo()", true);
             return;
         }
         if (ValidateLength(name) == true)
         {
-
             //mensaje de que usa , y .
-            name = "";
             Clean();
             mje = "Debe ingressar solo 4 caracteres sin comas ni puntos";
-            lblMjePNoCCL.Text = mje;
-            ClientScript.RegisterStartupScript(GetType(), "alertdanger", "alertPNo()", true);
+            lblMjeANoCCL.Text = mje;
+            ClientScript.RegisterStartupScript(GetType(), "alertdanger", "alertMNo()", true);
             return;
         }
-        if (ValidateName(name) == true)
+        if (ValidateNameEdit(txtAnoMod.Text, int.Parse(txtCod.Text)) == true)
         {
-            // de que ya existe 
-            name = "";
+            //mensaje de que usa , y .
             Clean();
             mje = "La fecha ya existe";
-            lblMjePNoCCL.Text = mje;
-            ClientScript.RegisterStartupScript(GetType(), "alertdanger", "alertPNo()", true);
+            lblMjeANoCCL.Text = mje;
+            ClientScript.RegisterStartupScript(GetType(), "alertdanger", "alertMNo()", true);
             return;
         }
 
-        if (name != "")
+        int checkActivo = chkAnoMod.Checked ? 1 : 0;
+        if (ActivateModal(checkActivo) == true)
         {
-            //aca validar q no tenga coma ni E, ni la coma, y espacio
-
-            cod = int.Parse(DropDownList1.SelectedValue);
-            int checkActivo = cbAnoMod.Checked ? 1 : 0;
-            //mje de que si esta seguro que quiere activar el año "este"
-            ChangeToZero(checkActivo);
-            //fin del if
-            cl.updateCL(name, checkActivo, cod);
-            FillDdl();
-            Clean();
-            ShowButtons();
-            YearActive();
-            mje = "Registro guardado con exito";
-            lblMjePSiCCL.Text = mje;
-            ClientScript.RegisterStartupScript(GetType(), "alertsucces", "alertPSi()", true);
+            lblTituloModal.Text = "Informacion";
+            lblMjeModal.Text = "Ya existe un ciclo lectivo activo ¿esta seguro que desea activarlo?";
+            btnAceptarEliminar.Text = "Aceptar";
+            ClientScript.RegisterStartupScript(GetType(), "ActionModal", "modalAction()", true);
+            return;
         }
-    }
 
-    public void BringDdlItem()
-    {//carbar modal
-        if (panelEditar.Visible == true)
-        {
-            Int32 CodCiclo = Convert.ToInt32(DropDownList1.SelectedValue);
-            dt = cl.selectById(CodCiclo);
-            txtAnoMod.Text = dt.Rows[0]["Nombre"].ToString();
-            string activo = dt.Rows[0]["Activo"].ToString();
-            cbAnoMod.Checked = false;
-            if (activo == "True")
-            {
-                cbAnoMod.Checked = true;
-            }
-            string name = DropDownList1.SelectedItem.Text;
-            txtAnoMod.Text = name;
-        }
-    }
+        cod = int.Parse(txtCod.Text);
+        cl.updateCL(name, checkActivo, cod);
+        FillGrid();
+        Clean();
+        ShowButtons();
+        YearActive();
+        mje = "Registro guardado con exito";
+        lblMjeASiCCL.Text = mje;
+        ClientScript.RegisterStartupScript(GetType(), "alertsucces", "alertMSi()", true);
 
-    protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        BringDdlItem();
     }
 
     private void Clean()
@@ -144,14 +111,22 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
         txtNameCL.Text = string.Empty;
         txtNameCL.Text = "";
         chkActive.Checked = false;
+        chkAnoMod.Checked = false;
     }
 
-    protected void btnDeleteCL_Click(object sender, EventArgs e)
-    {//modal
-        int cod = int.Parse(DropDownList1.SelectedValue);
-        cl.deleteCL(cod);
-        FillDdl();
-        
+    private bool ValidateNameEdit(string nombre2, int cod)
+    {//valida que no repita el nombre
+        dt = cl.selectById(cod);
+        string nom1 = dt.Rows[0]["Nombre"].ToString();
+        if (nom1 == nombre2)
+        {
+            return false;
+        }
+        if (ValidateName(nombre2) == true)
+        {
+            return true;
+        }
+        return false;
     }
 
     private bool ValidateName(string nombre2)
@@ -177,8 +152,8 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
         {
             mje = "Ingrese una fecha valida";
             //mje vacio
-            lblMjeNoCCL.Text = mje;
-            ClientScript.RegisterStartupScript(GetType(), "alertdanger", "alertNo()", true);
+            lblMjeANoCCL.Text = mje;
+            ClientScript.RegisterStartupScript(GetType(), "alertdanger", "alertMNo()", true);
             //tring script = "<script languaje=javascript >console.log('error')</script>";
             //Response.Write(script);
             return;
@@ -189,8 +164,8 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
             name = "";
             Clean();
             mje = "Debe ingressar solo 4 caracteres sin comas ni puntos";
-            lblMjeNoCCL.Text = mje;
-            ClientScript.RegisterStartupScript(GetType(), "alertdanger", "alertNo()", true);
+            lblMjeANoCCL.Text = mje;
+            ClientScript.RegisterStartupScript(GetType(), "alertdanger", "alertMNo()", true);
             return;
         }
         if (ValidateName(name) == true)
@@ -199,54 +174,61 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
             name = "";//sacar esto
             Clean();
             mje = "La fecha ya existe";
-            lblMjeNoCCL.Text = mje;
-            ClientScript.RegisterStartupScript(GetType(), "alertdanger", "alertNo()", true);
+            lblMjeANoCCL.Text = mje;
+            ClientScript.RegisterStartupScript(GetType(), "alertdanger", "alertMNo()", true);
             return;
         }
-        //validar q no tenga campos vacio, volver a chequear (required)
 
-        if (name != "")//sacar esto
+        int checkActivo = chkActive.Checked ? 1 : 0;
+        if (ActivateModal(checkActivo) == true)
         {
-            int checkActivo = chkActive.Checked ? 1 : 0;
-            //mje de que si esta seguro que quiere activar el año "este"
-            ChangeToZero(checkActivo);
-            // fin del if.
-            cl.addCL(name, checkActivo);
-            FillDdl();
-            Clean();
-            panelEditar.Enabled = false;
-            YearActive();
-            //mensaje de exito
-            mje = "Registro guardado con exito";
-            lblMjeSiCCL.Text = mje;
-            ClientScript.RegisterStartupScript(GetType(), "alertsucces", "alertSi()", true);
+            lblTituloModal.Text = "Informacion";
+            lblMjeModal.Text = "Ya existe un ciclo lectivo activo ¿esta seguro que desea activarlo?";
+            btnAceptarEliminar.Text = "Aceptar";
+            ClientScript.RegisterStartupScript(GetType(), "ActionModal", "modalAction()", true);
+            return;
         }
+
+
+
+        cl.addCL(name, checkActivo);
+        FillGrid();
+        Clean();
+        panelEditar.Enabled = false;
+        YearActive();
+        mje = "Registro guardado con exito";
+        lblMjeASiCCL.Text = mje;
+        ClientScript.RegisterStartupScript(GetType(), "alertsucces", "alertMSi()", true);
+
     }
-    
+
     private void ShowButtons()
     {// mostrar lo votones de ABM y panel
         if (panelEditar.Visible == true)
         {
-            btnStartCL.Enabled = true;
-            btnDeleteCL.Enabled = true;
-            btnStartCL.Visible = true;
-            btnDeleteCL.Visible = true;
-            panelEditar.Visible = false;
+            //estaria bueno q desaparesca los otros datos de la tabla
 
+            panelEditar.Visible = false;
+            panelCrear.Visible = true;
         }
         else
         {
-            btnStartCL.Enabled = false;
-            btnDeleteCL.Enabled = false;
-            btnStartCL.Visible = false;
-            btnDeleteCL.Visible = false;
             panelEditar.Visible = true;
-            BringDdlItem();
+            panelCrear.Visible = false;
         }
     }
-    protected void btnEdit_Click(object sender, EventArgs e)
+
+    private bool ActivateModal(int check)
     {
-        ShowButtons();
+        dt = cl.selectAct();
+        if (dt.Rows.Count > 0)
+        {
+            if (check == 1)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void ChangeToZero(int checkActivo)
@@ -266,6 +248,7 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
         }
     }
 
+
     private bool ValidateLength(string nombre)
     {//valida si tiene mas de 4 o menos de 4, y si el TXT continene "Coma y punto"
         char[] ar;
@@ -284,4 +267,151 @@ public partial class FrmCicloLectivo : System.Web.UI.Page
         return false;
     }
 
+    private void FillGrid()
+    {//trae toda la grilla
+        dt = cl.selectAll();
+        //gvCL.DataSource = dt;
+        //gvCL.DataBind();
+        chargerG(dt);
+
+    }
+
+    protected void btnEliminar_Click(object sender, ImageClickEventArgs e)
+    {
+        btnAceptarEliminar.Text = "Eliminar";
+        ClientScript.RegisterStartupScript(GetType(), "ActionModal", "modalAction()", true);
+        ImageButton btnEliminar = sender as ImageButton;
+        GridViewRow row = (GridViewRow)btnEliminar.NamingContainer;
+        int codCL = Convert.ToInt32(row.Cells[0].Text);
+        txtCod.Text = codCL.ToString();
+
+    }
+
+    protected void gvCL_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow || e.Row.RowType == DataControlRowType.Header)
+
+            e.Row.Cells[0].Attributes.Add("style", "display:none");
+    }
+
+
+    protected void btnEditar_Click(object sender, ImageClickEventArgs e)
+    {
+        
+        ImageButton btnEditar = sender as ImageButton;
+        GridViewRow row = (GridViewRow)btnEditar.NamingContainer;
+        ShowButtons();
+        int codCL = Convert.ToInt32(row.Cells[0].Text);
+        txtCod.Text = codCL.ToString();
+        if (panelEditar.Visible == true)
+        {
+            btnEditar.ImageUrl = "~/Iconos/return.png";
+            dt = cl.selectById(codCL);
+            txtAnoMod.Text = dt.Rows[0]["Nombre"].ToString();
+            lblEditar.Text = "Se editara el año: " + dt.Rows[0]["Nombre"].ToString();
+            string activo = dt.Rows[0]["Activo"].ToString();
+            chkAnoMod.Checked = false;
+           
+            if (activo == "True")
+            {
+                chkAnoMod.Checked = true;
+            }
+            //revisar
+            dt = cl.selecSerch(txtAnoMod.Text);
+            chargerG(dt);
+            //revisar
+        }
+        else
+        {
+            btnEditar.ImageUrl = "~/Iconos/saveas.ico";
+            FillGrid();
+        }
+      
+    }
+
+    protected void btnAceptarEliminar_Click(object sender, EventArgs e)
+    {
+        string mje = "";
+        if (btnAceptarEliminar.Text == "Eliminar")
+        {
+            int codCL = int.Parse(txtCod.Text);
+            cl.deleteCL(codCL);
+            FillGrid();
+            Clean();
+            mje = "Registro eliminado con exito";
+            ClientScript.RegisterStartupScript(GetType(), "AlertEliminado", "alertMSi()", true);
+        }
+        if (btnAceptarEliminar.Text == "Aceptar")
+        {
+
+            int checkActivo = chkActive.Checked ? 1 : 0;
+            int checkActivo2 = chkAnoMod.Checked ? 1 : 0;
+            if (checkActivo == 1)
+            {
+
+                string name = txtNameCL.Text;
+                ChangeToZero(checkActivo);
+                cl.addCL(name, checkActivo);
+                FillGrid();
+                Clean();
+                panelEditar.Visible = false;
+                YearActive();
+                mje = "Registro guardado con exito";
+                lblMjeASiCCL.Text = mje;
+                ClientScript.RegisterStartupScript(GetType(), "alertsucces", "alertMSi()", true);
+
+            }
+            if (checkActivo2 == 1)
+            {
+                cod = int.Parse(txtCod.Text);
+                string name = txtAnoMod.Text;
+                ChangeToZero(checkActivo2);
+                cl.updateCL(name, checkActivo2, cod);
+                FillGrid();
+                Clean();
+                ShowButtons();
+                YearActive();
+                mje = "Registro guardado con exito";
+                lblMjeASiCCL.Text = mje;
+                ClientScript.RegisterStartupScript(GetType(), "alertsucces", "alertMSi()", true);
+
+            }
+        }
+    }
+
+
+    protected void btnBuscar_Click(object sender, EventArgs e)
+    {
+        if (txtBuscar.Text != "")
+        {
+            dt = cl.selecSerch(txtBuscar.Text);
+            if (dt.Rows.Count > 0)
+            {
+                chargerG(dt);
+                btnBack.Visible = true;
+            }
+        }
+        else
+        {
+            FillGrid();
+        }
+
+    }
+
+    private GridView chargerG(DataTable dt)
+    {
+        if (dt.Rows.Count > 0)
+        { 
+            gvCL.DataSource = dt;
+            gvCL.DataBind();
+        }
+        return gvCL;
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        FillGrid();
+        btnBack.Visible = false;
+    }
+
+   
 }
