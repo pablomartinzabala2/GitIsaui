@@ -34,8 +34,8 @@ namespace CapaDatos
 
         public DataTable selectById(int id)
         {
-            string sql = $"SELECT Nombre,Activo FROM CicloLectivo WHERE CodCiclo = {id.ToString()}";
-            return  cDb.GetDatos(sql);
+            string sql = $"SELECT Nombre,Activo FROM CicloLectivo WHERE CodCiclo = {id}";
+            return cDb.GetDatos(sql);
         }
 
         public DataTable selectAct()
@@ -50,5 +50,10 @@ namespace CapaDatos
             return cDb.GetDatos(com);
         }
 
+        public DataTable selecSerch(string nom)
+        {           
+                string sql = $"select * from CicloLectivo where Nombre like  {nom}" ;
+                return cDb.GetDatos(sql);   
+        }
     }
 }
