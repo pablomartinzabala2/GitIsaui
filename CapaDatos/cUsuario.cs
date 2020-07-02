@@ -59,12 +59,17 @@ namespace CapaDatos
                 return "La operación no se pudo realizar "+e; }
         }
 
-        public string Agregar(String  nombre, String clave)
+        public string Agregar(String  nombre, String clave , int docente =0)
         {
             clave = this.enc_des(clave, 'e'); // se encripta la clave  
             try
             {
-                string sql = $"INSERT INTO  USUARIO (nombre, clave) VALUES ('{nombre}','{clave}')";
+                string sql = "";
+                if (docente != 0)
+                {
+                    sql = $"INSERT INTO  \"ISAUI\".USUARIO (nombre, clave, coddocente) VALUES ('{nombre}','{clave}',{docente.ToString()})";
+                }else
+                    sql = $"INSERT INTO  USUARIO (nombre, clave ) VALUES ('{nombre}','{clave}')";
                 cDb.Grabar(sql);
                 return "ok";
             }

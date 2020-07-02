@@ -29,3 +29,19 @@
     width:100px;
     height:25px;
 }
+ 
+     @media screen and (max-width:600px){
+  
+    
+   
+ }
+
+.cuadro-editar{
+     width:auto; 
+     display: table; 
+     vertical-align: middle; 
+     border:1px solid rgba(237,237,237,1) ;
+     background: rgba(246,246,246,1) 47% ;
+ }
+ 
+ 

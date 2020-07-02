@@ -6,15 +6,20 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using CapaDatos;
+using System.Collections;
+
 public partial class FrmAbmUsuario : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-
+            var cDoc = new cDocente();
+            this.listDocentes.DataSource = cDoc.GetListDocentes();
+            this.listDocentes.DataBind();
         }
     }
+
     protected void btnGuardar_Click(object sender, EventArgs e)
     {
         if (txtNombre.Text == "")
@@ -30,9 +35,10 @@ public partial class FrmAbmUsuario : System.Web.UI.Page
         }
         var nombre = txtNombre.Text;
         var clave = txtClave.Text;
+        var docente = Convert.ToInt32(listDocentes.Text.Split('#')[0]);
         cUsuario usuario = new cUsuario();
 
-        var r = usuario.Agregar(nombre, clave);
+        var r = usuario.Agregar(nombre, clave, docente);
         if (r.Equals("ok")) {
             Session["mensaje"]="Usuario generado correctamente";
             Response.Redirect("FrmPrincipal.aspx");
@@ -42,6 +48,7 @@ public partial class FrmAbmUsuario : System.Web.UI.Page
         }
 
     }
+
     protected void validarUsuario(object sender, EventArgs e)
     {
         cUsuario usuario = new cUsuario();
@@ -57,7 +64,7 @@ public partial class FrmAbmUsuario : System.Web.UI.Page
     }
 
 
-   public void Mensaje(string Msj)
+    public void Mensaje(string Msj)
     {
         string Cuerpo = "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js\"></script>" +
             "<script src=\"https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js\"></script>" +
