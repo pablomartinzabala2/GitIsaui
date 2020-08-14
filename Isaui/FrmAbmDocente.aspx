@@ -1,4 +1,5 @@
-﻿ <%@ Page Title="FrmAbmDocente" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="FrmAbmDocente.aspx.cs"  Inherits="FrmAbmDocente" %>
+﻿
+ <%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="FrmAbmDocente.aspx.cs"  Inherits="FrmAbmDocente" %>
  <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript">
         var idElimina=0;

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="FrmEditarDocente" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="FrmEditarDocente.aspx.cs"  Inherits="FrmEditarDocente" %>
+﻿<%@ Page Title="FrmEditarDocente" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="FrmEditarDocente.aspx.cs"  Inherits="FrmEditarDocente" %>
 
 <asp:Content ID="BodyContent"  AutoPostBack="false" ContentPlaceHolderID="MainContent" runat="server">
     <br>
