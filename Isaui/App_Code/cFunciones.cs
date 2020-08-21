@@ -9,7 +9,7 @@ using CapaDatos;
 /// <summary>
 /// Summary description for cFunciones
 /// </summary>
-public static class cFunciones
+public  class cFunciones
 {
     public cFunciones()
     {
@@ -18,7 +18,7 @@ public static class cFunciones
         //
     }
 
-    public static void LlenarCombo(DropDownList Combo, string Tabla, string Texto, string Value)
+    public  void LlenarCombo(DropDownList Combo, string Tabla, string Texto, string Value)
     {
         string sql = " select * from " + Tabla;
         sql = sql + " order by " + Texto;
@@ -44,7 +44,7 @@ public static class cFunciones
         Combo.DataBind();
     }
 
-    public static void LlenarComboDatatable(DropDownList Combo, DataTable trdo, string Texto, string Value)
+    public  void LlenarComboDatatable(DropDownList Combo, DataTable trdo, string Texto, string Value)
     {
         DataTable trdo2 = new DataTable();
         trdo2.Columns.Add(Value);
